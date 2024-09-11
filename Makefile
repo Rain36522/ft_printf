@@ -9,7 +9,6 @@
 #   Updated: 11/09/2024 09:29:06 by pudry            ###   ########.ch       #
 #                                                                            #
 # ************************************************************************** #
-
 RESET = \033[0m
 RED = \033[31m
 GREEN = \033[1;32m
@@ -26,9 +25,9 @@ NAME = libftprintf.a
 
 # Sources et objets
 SRC = $(wildcard src/*.c)
-SRC += $(wildcard libft/src/*.c)
-OBJ = $(SRC:src/%.c=objet/%.o)
-OBJ += $(SRC:libft/src/%.c=objet/%.o)
+LIBFT_SRC = $(wildcard libft/src/*.c)
+OBJ = $(SRC:src/%.c=objet/src/%.o)
+LIBFT_OBJ = $(LIBFT_SRC:libft/src/%.c=objet/libft/%.o)
 
 all: $(NAME)
 	@echo "${GREEN}ft_printf compilation success"
@@ -37,8 +36,8 @@ all: $(NAME)
 	@echo "${PURPLE}#include \"ft_printf.h\""
 	@echo "${RED}Do not forget to add libft flags${RESET}"
 
-$(NAME): $(OBJ)
-	@ar rcs $(NAME) $(OBJ) # Combine les fichiers objets et libft.a
+$(NAME): $(OBJ) $(LIBFT_OBJ)
+	@ar rcs $(NAME) $(OBJ) $(LIBFT_OBJ) # Combine les fichiers objets
 
 clean:
 	@rm -rf objet/
@@ -52,11 +51,13 @@ fclean: clean
 
 re: fclean all
 
-objet/%.o: src/%.c
+# Compilation des objets pour les sources de src/
+objet/src/%.o: src/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INCLUDES) $(LIBFT_FLAGS)
 
-objet/%.o: libft/src/%.c
+# Compilation des objets pour les sources de libft/src/
+objet/libft/%.o: libft/src/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INCLUDES) $(LIBFT_FLAGS)
 
