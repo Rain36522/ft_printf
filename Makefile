@@ -33,7 +33,9 @@ all: $(NAME)
 	@echo "${GREEN}ft_printf compilation success"
 	@echo "${BLUE}for header and library"
 	@echo "-I $(PWD)/includes -L $(PWD)/$(NAME) -lft"
+	@echo "-I $(PWD)/$(LIBFT)/includes"
 	@echo "${PURPLE}#include \"ft_printf.h\""
+	@echo "${PURPLE}#include \"libft.h\""
 	@echo "${RED}Do not forget to add libft flags${RESET}"
 
 $(NAME): $(OBJ) $(LIBFT_OBJ)
