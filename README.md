@@ -13,3 +13,4 @@ function prototype: `int	ft_printf(const char *str, ...)`
 - **`make clean`**: Removes the `objet` folder.
 - **`make fclean`**: Runs `make clean` and removes the executable and the `libftprintf.a` library.
 - **`make re`**: Runs `make fclean` and then `make`.
+- **`make init`**: Init submodules.

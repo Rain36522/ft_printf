@@ -53,6 +53,10 @@ fclean: clean
 
 re: fclean all
 
+init:
+	git submodule init
+	git submodule update
+
 # Compilation des objets pour les sources de src/
 objet/src/%.o: src/%.c
 	@mkdir -p $(dir $@)
@@ -63,4 +67,4 @@ objet/libft/%.o: libft/src/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INCLUDES) $(LIBFT_FLAGS)
 
-.PHONY: clean fclean all re
+.PHONY: clean fclean all re init
